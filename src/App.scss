@@ -1,0 +1,102 @@
+:root {
+  --brand: #8d6c9f;
+}
+html {
+  font-size: 20px;
+}
+.logo {
+  img {
+    height: 7rem;
+  }
+}
+h1 {
+  font-weight: 900;
+  color: var(--brand);
+  margin: 0;
+}
+.search {
+//   transition: all 0.4s ease;
+  position: sticky;
+  top: 20px;
+  z-index: 1;
+  width: 50%;
+  margin: auto;
+  img {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 60px;
+    height: 80%;
+    transform: translateY(-50%);
+  }
+  .form-control {
+    padding: 0 1.5rem;
+    color: var(--brand);
+    border-radius: 50px;
+    height: 3rem;
+    line-height: 1;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.8);
+    border-width: 2px;
+    border-color: var(--brand);
+  }
+  &.focused {
+    // transform: translateY(-4px);
+    .form-control {
+      &:focus {
+        color: var(--brand);
+        border-color: var(--brand);
+        // box-shadow: 0 10px 20px 0 rgba(141, 108, 159, 0.2);
+        box-shadow: none;
+      }
+    }
+  }
+}
+.cards-wrap {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  .card {
+    flex: 0 0 23%;
+    margin: 1rem 1%;
+    border-radius: 2rem;
+    overflow: hidden;
+    .card-title {
+      margin-bottom: 0.25rem;
+      font-size: 1rem;
+    }
+    img {
+      height: 15rem;
+      object-fit: cover;
+      background: #f4f4f4;
+      object-position: top;
+    }
+  }
+}
+
+// Breakpoints
+
+@media (max-width: 767px) {
+  html {
+    font-size: 16px;
+  }
+  .logo {
+    img {
+      height: 5rem;
+    }
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  .cards-wrap {
+    justify-content: space-between;
+    .card {
+      flex: 0 0 48%;
+      margin: 1rem 0;
+    }
+  }
+  .search {
+    width: 80%;
+  }
+}
