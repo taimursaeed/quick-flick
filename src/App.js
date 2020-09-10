@@ -78,7 +78,7 @@ class App extends React.Component {
     }
   };
   renderRows(data) {
-    const movies = [];
+    let movies = [];
     let imgPath = "https://image.tmdb.org/t/p/w400";
     if (data.length) {
       data.forEach((item) => {
@@ -91,6 +91,13 @@ class App extends React.Component {
           />
         );
       });
+    } else {
+      movies = (
+        <p className="text-center" style={{ flex: 1 }}>
+          {" "}
+          No result found{" "}
+        </p>
+      );
     }
     this.setState((prevState) => ({ movies: movies, searching: false }));
   }
