@@ -15,7 +15,7 @@ h1 {
   margin: 0;
 }
 .search {
-//   transition: all 0.4s ease;
+  //   transition: all 0.4s ease;
   position: sticky;
   top: 20px;
   z-index: 1;
@@ -37,19 +37,14 @@ h1 {
     line-height: 1;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     border-width: 2px;
     border-color: var(--brand);
-  }
-  &.focused {
-    // transform: translateY(-4px);
-    .form-control {
-      &:focus {
-        color: var(--brand);
-        border-color: var(--brand);
-        // box-shadow: 0 10px 20px 0 rgba(141, 108, 159, 0.2);
-        box-shadow: none;
-      }
+    &:focus {
+      color: var(--brand);
+      border-color: var(--brand);
+      // box-shadow: 0 10px 20px 0 rgba(141, 108, 159, 0.2);
+      box-shadow: none;
     }
   }
 }
@@ -75,6 +70,12 @@ h1 {
   }
 }
 
+.load-more {
+  text-align: center;
+  img {
+    height: 4rem;
+  }
+}
 // Breakpoints
 
 @media (max-width: 767px) {
