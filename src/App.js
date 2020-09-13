@@ -60,13 +60,20 @@ class App extends React.Component {
     let loadMore = null;
 
     if (!this.state.notFound && this.state.currentPage >= 1) {
-      this.state.loadMore
-        ? (loadMore = (
-            <div className="load-more">
-              <img src={Loader} alt="loader" />
-            </div>
-          ))
-        : (loadMore = <div className="text-center my-4">End of results</div>);
+      if (this.state.loadMore) {
+        loadMore = (
+          <div className="load-more">
+            <img src={Loader} alt="loader" />
+          </div>
+        );
+      } else {
+        if (
+          this.state.searchTerm.length &&
+          this.state.currentPage > this.state.totalPages
+        ) {
+          loadMore = <div className="text-center my-4">End of results</div>;
+        }
+      }
     }
 
     return (
