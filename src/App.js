@@ -5,7 +5,6 @@ import Movies from "./Movies";
 import NotFound from "./assets/not-found.png";
 import Logo from "./assets/logo.svg";
 import Loader from "./assets/loader.svg";
-
 class App extends React.Component {
   constructor() {
     super();
@@ -24,7 +23,7 @@ class App extends React.Component {
   componentDidMount() {
     window.addEventListener("scroll", this.handleScroll);
   }
-  componentDidUpdate(e) {
+  componentDidUpdate() {
     console.log("componentDidUpdate");
   }
 
@@ -95,6 +94,7 @@ class App extends React.Component {
             ></input>
             {this.state.searching ? <img src={Loader} alt="loading" /> : ""}
           </div>
+          {/* <Search /> */}
           <div className="cards-wrap">{moviesList}</div>
           {loadMore}
         </div>
@@ -124,7 +124,7 @@ class App extends React.Component {
         !this.state.loadMore &&
         this.state.currentPage <= this.state.totalPages
       ) {
-        this.setState((prevState) => ({ loadMore: true }));
+        this.setState({ loadMore: true });
         let currentPage = this.state.currentPage + 1;
 
         this.fetchMovies(this.state.searchTerm, currentPage, (data) => {
@@ -168,17 +168,17 @@ class App extends React.Component {
     if (searchTerm.length) {
       this.setState({ searchTerm: searchTerm, searching: true });
       this.fetchMovies(searchTerm, currentPage, (data) => {
-        this.setState((prevState) => ({
+        this.setState({
           movies: data.results,
           searching: false,
           loadMore: false,
           notFound: !data.results.length,
           currentPage: 1,
           totalPages: data.total_pages,
-        }));
+        });
       });
     } else {
-      this.setState((prevState) => ({
+      this.setState({
         searchTerm: searchTerm,
         movies: [],
         searching: false,
@@ -186,7 +186,7 @@ class App extends React.Component {
         notFound: false,
         currentPage: 1,
         totalPages: 1,
-      }));
+      });
     }
   };
 }
