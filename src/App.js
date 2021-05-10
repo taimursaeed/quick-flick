@@ -144,7 +144,7 @@ class App extends React.Component {
     this.aborter = new AbortController();
     const signal = this.aborter.signal;
     fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=6f4582b964f96a9f0ef0464619a70097&query=${searchTerm}&page=${currentPage}`,
+      `${process.env.REACT_APP_API_URL}?api_key=${process.env.REACT_APP_API_KEY}&query=${searchTerm}&page=${currentPage}`,
       { signal: signal }
     )
       .then((res) => res.json())
