@@ -1,105 +1,26 @@
+// @ts-nocheck
 import React from "react";
 import "./App.scss";
-import "./Movies";
-import Movies from "./Movies";
-import NotFound from "./assets/not-found.png";
-import Logo from "./assets/logo.svg";
-import Loader from "./assets/loader.svg";
+import Header from "./components/header";
+import MoviesList from "./components/moviesList";
+
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      movies: [],
       searchTerm: "",
-      searching: false,
-      notFound: false,
-      loadMore: false,
-      currentPage: 1,
-      totalPages: 1,
+      isFetching: false,
     };
     this.aborter = null;
+    this.movies = [];
   }
 
   componentDidMount() {
     window.addEventListener("scroll", this.handleScroll);
   }
-  componentDidUpdate() {
-    console.log("componentDidUpdate");
-  }
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
-  }
-
-  render() {
-    const movies = this.state.movies;
-    let imgPath = "https://image.tmdb.org/t/p/w400";
-    let moviesList = [];
-
-    if (movies.length) {
-      movies.forEach((item) => {
-        moviesList.push(
-          <Movies
-            key={item.id}
-            title={item.title}
-            img={item.poster_path ? imgPath + item.poster_path : NotFound}
-            release={item.release_date}
-          />
-        );
-      });
-    }
-    if (this.state.notFound) {
-      moviesList = (
-        <p className="text-center" style={{ flex: 1 }}>
-          No result found
-        </p>
-      );
-    }
-
-    let loadMore = null;
-
-    if (!this.state.notFound && this.state.currentPage >= 1) {
-      if (this.state.loadMore) {
-        loadMore = (
-          <div className="load-more">
-            <img src={Loader} alt="loader" />
-          </div>
-        );
-      } else {
-        if (
-          this.state.searchTerm.length &&
-          this.state.currentPage > this.state.totalPages
-        ) {
-          loadMore = <div className="text-center my-4">End of results</div>;
-        }
-      }
-    }
-
-    return (
-      <div className="App">
-        <div className="container-sm">
-          <div className="logo my-4 text-center ">
-            <img src={Logo} alt="Logo" />
-            <h1>Movies Search</h1>
-          </div>
-          <div className="search">
-            <input
-              className="form-control mb-4"
-              type="text"
-              placeholder="Search movies, series and episodes...."
-              onChange={this.handleChange}
-              onFocus={this.onFocus}
-              onBlur={this.onBlur}
-              value={this.state.searchTerm}
-            ></input>
-            {this.state.searching ? <img src={Loader} alt="loading" /> : ""}
-          </div>
-          {/* <Search /> */}
-          <div className="cards-wrap">{moviesList}</div>
-          {loadMore}
-        </div>
-      </div>
-    );
   }
 
   handleScroll = () => {
@@ -119,27 +40,23 @@ class App extends React.Component {
     );
     const windowBottom = windowHeight + window.pageYOffset;
     if (this.state.searchTerm && windowBottom >= docHeight - bottomThreshold) {
-      console.log("bottom reached");
-      if (
-        !this.state.loadMore &&
-        this.state.currentPage <= this.state.totalPages
-      ) {
-        this.setState({ loadMore: true });
-        let currentPage = this.state.currentPage + 1;
-
-        this.fetchMovies(this.state.searchTerm, currentPage, (data) => {
-          this.setState((prevState) => ({
-            movies: prevState.movies.concat(data.results),
-            currentPage: currentPage,
-            loadMore: false,
-          }));
-        });
+      if (this.movies.page < this.movies.total_pages) {
+        this.setState({ isFetching: true });
+        this.fetchMovies(
+          this.state.searchTerm,
+          this.movies.page + 1,
+          (data) => {
+            this.movies.page = data.page;
+            this.movies.results = this.movies.results.concat(data.results);
+            this.setState({ isFetching: false });
+          }
+        );
       }
     }
   };
 
   fetchMovies = (searchTerm, currentPage, callback) => {
-    // Cancel previous requests
+    // First cancel previous requests
     if (this.aborter) this.aborter.abort();
     this.aborter = new AbortController();
     const signal = this.aborter.signal;
@@ -161,34 +78,50 @@ class App extends React.Component {
       });
   };
 
-  handleChange = (e) => {
+  handleSearch = (e) => {
     const searchTerm = e.target.value;
     const currentPage = this.state.currentPage;
 
     if (searchTerm.length) {
-      this.setState({ searchTerm: searchTerm, searching: true });
+      this.setState({ searchTerm: searchTerm, isFetching: true });
       this.fetchMovies(searchTerm, currentPage, (data) => {
+        this.movies = data;
         this.setState({
-          movies: data.results,
-          searching: false,
+          isFetching: false,
           loadMore: false,
-          notFound: !data.results.length,
           currentPage: 1,
           totalPages: data.total_pages,
         });
       });
     } else {
+      this.movies = [];
       this.setState({
         searchTerm: searchTerm,
-        movies: [],
-        searching: false,
         loadMore: false,
-        notFound: false,
         currentPage: 1,
         totalPages: 1,
       });
     }
   };
+
+  render() {
+    return (
+      <div className="App">
+        <div className="container-sm">
+          <Header
+            onChange={this.handleSearch}
+            isFetching={this.state.isFetching}
+            searchTerm={this.state.searchTerm}
+          />
+          <MoviesList
+            searchTerm={this.state.searchTerm}
+            fetchCompleted={!this.state.isFetching}
+            movies={this.movies}
+          />
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
