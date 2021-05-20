@@ -1,7 +1,7 @@
 import { useState } from "react";
-import NotFound from "./../assets/not-found.png";
 import MovieCard from "./movieCard";
 import MovieExpanded from "./movieExpanded";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export default function MoviesList({ searchTerm, fetchCompleted, ...props }) {
   const moviesMeta = props.movies;
@@ -10,8 +10,7 @@ export default function MoviesList({ searchTerm, fetchCompleted, ...props }) {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   const handleClick = (e) => {
-    e.preventDefault();
-    console.log(e);
+    // console.log(e);
     setSelectedMovie(e);
   };
   if (searchTerm.length > 0) {
@@ -33,14 +32,20 @@ export default function MoviesList({ searchTerm, fetchCompleted, ...props }) {
     }
   }
   return (
-    <>
-      <div className="movies-wrap">
-        <div className="d-flex flex-grow-1 text-center flex-column">
-          <div className="cards-wrap">{movieView}</div>
-          {helperText}
-        </div>
-        {selectedMovie && <MovieExpanded />}
-      </div>
-    </>
+    <Router>
+      <Switch>
+        <Route path="/show/:id">
+          <MovieExpanded />
+        </Route>
+        <Route path="/">
+          <div className="movies-wrap">
+            <div className="d-flex flex-grow-1 text-center flex-column">
+              <div className="cards-wrap">{movieView}</div>
+              {helperText}
+            </div>
+          </div>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
