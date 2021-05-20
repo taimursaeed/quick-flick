@@ -1,21 +1,23 @@
+import { useState } from "react";
 import NotFound from "./../assets/not-found.png";
 import MovieCard from "./movieCard";
+import MovieExpanded from "./movieExpanded";
 
 export default function MoviesList({ searchTerm, fetchCompleted, ...props }) {
   const moviesMeta = props.movies;
   const movies = props.movies.results;
-  const imgPath = "https://image.tmdb.org/t/p/w400";
   let movieView, helperText;
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    console.log(e);
+    setSelectedMovie(e);
+  };
   if (searchTerm.length > 0) {
     if (movies?.length > 0) {
       movieView = movies.map((movie) => (
-        <MovieCard
-          key={movie.id}
-          title={movie.title}
-          img={movie.poster_path ? imgPath + movie.poster_path : NotFound}
-          release={movie.release_date}
-        />
+        <MovieCard key={movie.id} {...movie} onClick={handleClick} />
       ));
     }
     if (fetchCompleted) {
@@ -32,8 +34,13 @@ export default function MoviesList({ searchTerm, fetchCompleted, ...props }) {
   }
   return (
     <>
-      <div className="cards-wrap">{movieView}</div>
-      {helperText}
+      <div className="movies-wrap">
+        <div className="d-flex flex-grow-1 text-center flex-column">
+          <div className="cards-wrap">{movieView}</div>
+          {helperText}
+        </div>
+        {selectedMovie && <MovieExpanded />}
+      </div>
     </>
   );
 }

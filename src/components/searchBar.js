@@ -6,7 +6,7 @@ export default function SearchBar(props) {
       <input
         className="form-control mb-4"
         type="text"
-        placeholder="Search movies, series and episodes...."
+        placeholder="Search movies, tv series and episodes...."
         onChange={props.onChange}
         value={props.searchTerm}
       ></input>
