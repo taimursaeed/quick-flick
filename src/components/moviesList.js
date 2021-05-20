@@ -1,22 +1,16 @@
-import { useState } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import MovieCard from "./movieCard";
 import MovieExpanded from "./movieExpanded";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export default function MoviesList({ searchTerm, fetchCompleted, ...props }) {
   const moviesMeta = props.movies;
   const movies = props.movies.results;
   let movieView, helperText;
-  const [selectedMovie, setSelectedMovie] = useState(null);
 
-  const handleClick = (e) => {
-    // console.log(e);
-    setSelectedMovie(e);
-  };
   if (searchTerm.length > 0) {
     if (movies?.length > 0) {
       movieView = movies.map((movie, index) => (
-        <MovieCard key={index} {...movie} onClick={handleClick} />
+        <MovieCard key={index} {...movie} />
       ));
     }
     if (fetchCompleted) {

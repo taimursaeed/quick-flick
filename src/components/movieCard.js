@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import NotFound from "./../assets/not-found.png";
 
 export default function MovieCard(props) {
-  const imgPath = "https://image.tmdb.org/t/p/w400";
+  const imgPath = "https://image.tmdb.org/t/p/w300";
 
   return (
     <Link
