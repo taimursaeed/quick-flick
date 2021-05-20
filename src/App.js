@@ -111,27 +111,25 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <div className="container-sm">
-          <Header
-            onChange={this.handleSearch}
-            isFetching={this.state.isFetching}
+        <Header
+          onChange={this.handleSearch}
+          isFetching={this.state.isFetching}
+          searchTerm={this.state.searchTerm}
+        />
+        {this.state.hasError ? (
+          <>
+            <div className="mx-auto my-5 p-2 rounded-left rounded-right text-center w-25 text-muted">
+              <div className="mb-3 h1">(·_·)</div>
+              <p className="mb-0">Uh oh, an error!</p>
+            </div>
+          </>
+        ) : (
+          <MoviesList
             searchTerm={this.state.searchTerm}
+            fetchCompleted={!this.state.isFetching}
+            movies={this.movies}
           />
-          {this.state.hasError ? (
-            <>
-              <div className="mx-auto my-5 p-2 rounded-left rounded-right text-center w-25 text-muted">
-                <div className="mb-3 h1">(·_·)</div>
-                <p className="mb-0">Uh oh, an error!</p>
-              </div>
-            </>
-          ) : (
-            <MoviesList
-              searchTerm={this.state.searchTerm}
-              fetchCompleted={!this.state.isFetching}
-              movies={this.movies}
-            />
-          )}
-        </div>
+        )}
       </div>
     );
   }

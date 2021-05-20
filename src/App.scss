@@ -1,8 +1,13 @@
 :root {
-  --brand: #8d6c9f;
+  --brand: #fff;
+  --pagebg: #171717;
+  --searchbg: rgba(37, 37, 37, 0.8);
 }
 html {
   font-size: 20px;
+}
+body {
+  background: var(--pagebg);
 }
 .logo {
   img {
@@ -11,7 +16,7 @@ html {
 }
 h1 {
   font-weight: 900;
-  color: var(--brand);
+  color: #e3e3e3;
   margin: 0;
 }
 .search {
@@ -19,7 +24,7 @@ h1 {
   position: sticky;
   top: 20px;
   z-index: 1;
-  width: 50%;
+  width: 40%;
   margin: auto;
   img {
     position: absolute;
@@ -31,19 +36,18 @@ h1 {
   }
   .form-control {
     padding: 0 1.5rem;
-    color: var(--brand);
+    color: #e3e3e3;
     border-radius: 50px;
     height: 3rem;
     line-height: 1;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.9);
+    background: var(--searchbg);
     border-width: 2px;
-    border-color: var(--brand);
+    border-color: #3d3d3d;
     &:focus {
-      color: var(--brand);
-      border-color: var(--brand);
-      // box-shadow: 0 10px 20px 0 rgba(141, 108, 159, 0.2);
+      color: #e3e3e3;
+      border-color: #3d3d3d;
       box-shadow: none;
     }
   }
@@ -53,19 +57,38 @@ h1 {
   flex-flow: row wrap;
   justify-content: flex-start;
   .card {
-    flex: 0 0 23%;
+    flex: 0 0 18%;
     margin: 1rem 1%;
     border-radius: 1rem;
+    border: none;
+    background: #3d3d3d;
     overflow: hidden;
+    text-decoration: none;
+    color: black;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    &:hover,
+    &.active {
+      transform: translateY(-4px);
+      box-shadow: 0 0 16px black;
+    }
+    .card-body {
+      background: #3d3d3d;
+      padding: 1rem;
+      color: white;
+    }
     .card-title {
       margin-bottom: 0.25rem;
       font-size: 1rem;
+      font-weight: 400;
     }
     img {
       height: 15rem;
       object-fit: cover;
-      background: #f4f4f4;
       object-position: top;
+      background: #3d3d3d;
+    }
+    .release {
+      color: #b9b9b9;
     }
   }
 }
