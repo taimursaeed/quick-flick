@@ -8,6 +8,7 @@ html {
 }
 body {
   background: var(--pagebg);
+  color: var(--brand);
 }
 .logo {
   img {
@@ -15,8 +16,8 @@ body {
   }
 }
 h1 {
-  font-weight: 900;
-  color: #e3e3e3;
+  font-weight: 700;
+  color: var(--brand);
   margin: 0;
 }
 .search {
@@ -36,7 +37,7 @@ h1 {
   }
   .form-control {
     padding: 0 1.5rem;
-    color: #e3e3e3;
+    color: var(--brand);
     border-radius: 50px;
     height: 3rem;
     line-height: 1;
@@ -46,7 +47,7 @@ h1 {
     border-width: 2px;
     border-color: #3d3d3d;
     &:focus {
-      color: #e3e3e3;
+      color: var(--brand);
       border-color: #3d3d3d;
       box-shadow: none;
     }
@@ -74,7 +75,7 @@ h1 {
     .card-body {
       background: #3d3d3d;
       padding: 1rem;
-      color: white;
+      color: var(--brand);
     }
     .card-title {
       margin-bottom: 0.25rem;
