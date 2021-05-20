@@ -10,6 +10,7 @@ class App extends React.Component {
     this.state = {
       searchTerm: "",
       isFetching: false,
+      hasError: false,
     };
     this.aborter = null;
     this.movies = [];
@@ -56,6 +57,8 @@ class App extends React.Component {
   };
 
   fetchMovies = (searchTerm, currentPage, callback) => {
+    this.setState({ hasError: false });
+
     // First cancel previous requests
     if (this.aborter) this.aborter.abort();
     this.aborter = new AbortController();
@@ -74,6 +77,7 @@ class App extends React.Component {
           return;
         } else {
           console.error("Uh oh, an error!", err);
+          this.setState({ hasError: true });
         }
       });
   };
@@ -113,11 +117,20 @@ class App extends React.Component {
             isFetching={this.state.isFetching}
             searchTerm={this.state.searchTerm}
           />
-          <MoviesList
-            searchTerm={this.state.searchTerm}
-            fetchCompleted={!this.state.isFetching}
-            movies={this.movies}
-          />
+          {this.state.hasError ? (
+            <>
+              <div className="mx-auto my-5 p-2 rounded-left rounded-right text-center w-25 text-muted">
+                <div className="mb-3 h1">(·_·)</div>
+                <p className="mb-0">Uh oh, an error!</p>
+              </div>
+            </>
+          ) : (
+            <MoviesList
+              searchTerm={this.state.searchTerm}
+              fetchCompleted={!this.state.isFetching}
+              movies={this.movies}
+            />
+          )}
         </div>
       </div>
     );
