@@ -4,7 +4,7 @@ export default function MovieCard(props) {
   const imgPath = "https://image.tmdb.org/t/p/w400";
 
   return (
-    <a className="card" href="#" onClick={props.onClick}>
+    <a className="card" href="#" onClick={props.onClick} id={props.id}>
       <img
         className="card-img-top"
         src={props.poster_path ? imgPath + props.poster_path : NotFound}

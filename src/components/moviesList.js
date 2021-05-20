@@ -16,8 +16,8 @@ export default function MoviesList({ searchTerm, fetchCompleted, ...props }) {
   };
   if (searchTerm.length > 0) {
     if (movies?.length > 0) {
-      movieView = movies.map((movie) => (
-        <MovieCard key={movie.id} {...movie} onClick={handleClick} />
+      movieView = movies.map((movie, index) => (
+        <MovieCard key={index} {...movie} onClick={handleClick} />
       ));
     }
     if (fetchCompleted) {

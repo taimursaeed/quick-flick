@@ -64,7 +64,7 @@ class App extends React.Component {
     this.aborter = new AbortController();
     const signal = this.aborter.signal;
     fetch(
-      `${process.env.REACT_APP_API_URL}?api_key=${process.env.REACT_APP_API_KEY}&query=${searchTerm}&page=${currentPage}`,
+      `${process.env.REACT_APP_API_URL}/search/multi?api_key=${process.env.REACT_APP_API_KEY}&query=${searchTerm}&page=${currentPage}`,
       { signal: signal }
     )
       .then((res) => res.json())
@@ -84,26 +84,19 @@ class App extends React.Component {
 
   handleSearch = (e) => {
     const searchTerm = e.target.value;
-    const currentPage = this.state.currentPage;
 
     if (searchTerm.length) {
       this.setState({ searchTerm: searchTerm, isFetching: true });
-      this.fetchMovies(searchTerm, currentPage, (data) => {
+      this.fetchMovies(searchTerm, 1, (data) => {
         this.movies = data;
         this.setState({
           isFetching: false,
-          loadMore: false,
-          currentPage: 1,
-          totalPages: data.total_pages,
         });
       });
     } else {
       this.movies = [];
       this.setState({
         searchTerm: searchTerm,
-        loadMore: false,
-        currentPage: 1,
-        totalPages: 1,
       });
     }
   };
