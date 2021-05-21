@@ -5,11 +5,9 @@ import Loader from "./../assets/loader.svg";
 
 export default function MovieExpanded() {
   const history = useHistory();
-  const [detail, setDetail] = useState("");
-  const [showId, setShowId] = useState(
-    history.location.pathname.split("show/")[1]
-  );
-  const imgPath = "https://image.tmdb.org/t/p/w200";
+  const [detail, setDetail] = useState(null);
+  const showId = history.location.pathname.split("show/")[1];
+  const imgPath = "https://image.tmdb.org/t/p";
 
   useEffect(() => {
     const getMovie = async () => {
@@ -22,7 +20,7 @@ export default function MovieExpanded() {
     getMovie();
   }, [showId]);
   return (
-    <div>
+    <div className="show-details">
       <header>
         <Link to="/">
           <svg
@@ -39,25 +37,68 @@ export default function MovieExpanded() {
           </svg>
         </Link>
       </header>
-      {/* <div className="text-center">
-        <img
-          src={Loader}
-          alt="loading"
-          style={{ height: "4rem", width: "4rem" }}
-        />
-      </div> */}
-      <div className="show-poster">
-        <img
-          src={
-            detail.backdrop_path ? imgPath + detail.backdrop_path : "NotFound"
-          }
-          style={{ width: "100%" }}
-        />
-      </div>
-      <pre className="text-white">
-        <code>{JSON.stringify(detail, 0, 2)}</code>
-      </pre>
-      expanded version goes here
+      {!detail ? (
+        <div className="text-center">
+          <img src={Loader} alt="loading" className="loader" />
+        </div>
+      ) : (
+        <div className="container-xs">
+          <div className="backdrop-poster">
+            <img
+              src={
+                detail.backdrop_path
+                  ? `${imgPath}/w200${detail.backdrop_path}`
+                  : "NotFound"
+              }
+              className="backdrop-poster"
+            />
+          </div>
+          <div className="detail">
+            <img
+              src={
+                detail.poster_path
+                  ? `${imgPath}/w400${detail.poster_path}`
+                  : "NotFound"
+              }
+              className="poster"
+            />
+            <div>
+              <a
+                href={detail.homepage ? detail.homepage : "#"}
+                target={detail.homepage ? " _blank" : "_parent"}
+                className="title"
+              >
+                {detail.title}
+                {detail.homepage ? (
+                  <svg
+                    className="ml-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
+                    <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
+                  </svg>
+                ) : (
+                  ""
+                )}
+              </a>
+              <p>Release: {detail.release_date}</p>
+              <p>Run time: {detail.runtime} m</p>
+              <p>
+                Genres:
+                {detail?.genres.map((item) => (
+                  <span className="ml-2 badge badge-light">{item.name}</span>
+                ))}
+              </p>
+              <p className="overview">{detail.overview}</p>
+            </div>
+          </div>
+          {/* <pre className="text-white">
+            <code>{JSON.stringify(detail, 0, 2)}</code>
+          </pre> */}
+        </div>
+      )}
     </div>
   );
 }

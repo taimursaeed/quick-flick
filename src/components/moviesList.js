@@ -32,11 +32,9 @@ export default function MoviesList({ searchTerm, fetchCompleted, ...props }) {
           <MovieExpanded />
         </Route>
         <Route path="/">
-          <div className="movies-wrap">
-            <div className="d-flex flex-grow-1 text-center flex-column">
-              <div className="cards-wrap">{movieView}</div>
-              {helperText}
-            </div>
+          <div className="d-flex flex-grow-1 text-center flex-column">
+            <div className="cards-wrap">{movieView}</div>
+            {helperText}
           </div>
         </Route>
       </Switch>
