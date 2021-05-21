@@ -13,7 +13,7 @@ class App extends React.Component {
       hasError: false,
     };
     this.aborter = null;
-    this.movies = [];
+    this.shows = [];
   }
 
   componentDidMount() {
@@ -41,17 +41,13 @@ class App extends React.Component {
     );
     const windowBottom = windowHeight + window.pageYOffset;
     if (this.state.searchTerm && windowBottom >= docHeight - bottomThreshold) {
-      if (this.movies.page < this.movies.total_pages) {
+      if (this.shows.page < this.shows.total_pages) {
         this.setState({ isFetching: true });
-        this.fetchMovies(
-          this.state.searchTerm,
-          this.movies.page + 1,
-          (data) => {
-            this.movies.page = data.page;
-            this.movies.results = this.movies.results.concat(data.results);
-            this.setState({ isFetching: false });
-          }
-        );
+        this.fetchMovies(this.state.searchTerm, this.shows.page + 1, (data) => {
+          this.shows.page = data.page;
+          this.shows.results = this.shows.results.concat(data.results);
+          this.setState({ isFetching: false });
+        });
       }
     }
   };
@@ -88,13 +84,13 @@ class App extends React.Component {
     if (searchTerm.length) {
       this.setState({ searchTerm: searchTerm, isFetching: true });
       this.fetchMovies(searchTerm, 1, (data) => {
-        this.movies = data;
+        this.shows = data;
         this.setState({
           isFetching: false,
         });
       });
     } else {
-      this.movies = [];
+      this.shows = [];
       this.setState({
         searchTerm: searchTerm,
       });
@@ -121,7 +117,7 @@ class App extends React.Component {
             <ShowsList
               searchTerm={this.state.searchTerm}
               fetchCompleted={!this.state.isFetching}
-              movies={this.movies}
+              shows={this.shows}
             />
           )}
         </div>

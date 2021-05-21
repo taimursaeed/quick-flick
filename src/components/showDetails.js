@@ -118,7 +118,7 @@ export default function ShowDetails() {
           {recommendations ? (
             <>
               <h2 className="h4 mt-5">You might also like:</h2>
-              <ShowRecommendations movies={recommendations.results} />
+              <ShowRecommendations shows={recommendations.results} />
             </>
           ) : (
             ""

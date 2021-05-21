@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import ShowCard from "./showCard";
 
-export default function ShowRecommendations({ movies }) {
+export default function ShowRecommendations({ shows }) {
   return (
     <div className="cards-wrap recommendations">
-      {movies.slice(0, 3).map((movie, index) => (
-        <ShowCard key={index} {...movie} />
+      {shows.slice(0, 3).map((show, index) => (
+        <ShowCard key={index} {...show} />
       ))}
     </div>
   );

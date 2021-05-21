@@ -3,20 +3,17 @@ import ShowCard from "./showCard";
 import ShowDetails from "./showDetails";
 
 export default function ShowsList({ searchTerm, fetchCompleted, ...props }) {
-  const moviesMeta = props.movies;
-  const movies = props.movies.results;
-  let movieView, helperText;
+  const showsMeta = props.shows;
+  const shows = props.shows.results;
+  let showView, helperText;
 
   if (searchTerm.length > 0) {
-    if (movies?.length > 0) {
-      movieView = movies.map((movie, index) => (
-        <ShowCard key={index} {...movie} />
-      ));
+    if (shows?.length > 0) {
+      showView = shows.map((show, index) => <ShowCard key={index} {...show} />);
     }
     if (fetchCompleted) {
       helperText =
-        moviesMeta.total_pages > 0 &&
-        moviesMeta.page <= moviesMeta.total_pages ? (
+        showsMeta.total_pages > 0 && showsMeta.page <= showsMeta.total_pages ? (
           <p className="text-center mt-3 mb-4">End of results</p>
         ) : (
           <p className="text-center mt-3 mb-4" style={{ flex: 1 }}>
@@ -33,7 +30,7 @@ export default function ShowsList({ searchTerm, fetchCompleted, ...props }) {
         </Route>
         <Route path="/">
           <div className="d-flex flex-grow-1 text-center flex-column">
-            <div className="cards-wrap">{movieView}</div>
+            <div className="cards-wrap">{showView}</div>
             {helperText}
           </div>
         </Route>
