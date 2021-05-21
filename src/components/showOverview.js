@@ -1,3 +1,4 @@
+import NotFound from "./../assets/not-found.png";
 export default function ShowOverview({ show }) {
   const imgPath = "https://image.tmdb.org/t/p";
   return (
@@ -5,7 +6,7 @@ export default function ShowOverview({ show }) {
       <div className="poster">
         <img
           src={
-            show.poster_path ? `${imgPath}/w400${show.poster_path}` : "NotFound"
+            show.poster_path ? `${imgPath}/w400${show.poster_path}` : NotFound
           }
         />
         <button className="btn btn-dark btn-block mt-3">Watch Trailer</button>
