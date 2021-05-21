@@ -149,18 +149,25 @@ h1 {
       flex-direction: column;
     }
     .poster {
-      max-width: 40rem;
-      height: 22rem;
-      object-fit: cover;
-      object-position: top;
-      margin-right: 3rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 40px #1a1a1a;
+      flex: 0 0 30%;
+      margin-right: 2.5rem;
       @media (max-width: 767px) {
+        margin-right: 0;
         margin-bottom: 2rem;
-        width: 100%;
+      }
+      img {
         max-width: 100%;
-        height: auto;
+        height: 22rem;
+        object-fit: cover;
+        object-position: top;
+        margin-right: 3rem;
+        border-radius: 1rem;
+        box-shadow: 0 0 40px #1a1a1a;
+        @media (max-width: 767px) {
+          width: 100%;
+          max-width: 100%;
+          height: auto;
+        }
       }
     }
     .title {

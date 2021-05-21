@@ -14,11 +14,12 @@ export default function ShowDetails() {
   const imgPath = "https://image.tmdb.org/t/p";
 
   useEffect(() => {
+    console.log(showId);
+
     const getMovie = async () => {
       const response = await callAPI(
         `${process.env.REACT_APP_API_URL}/movie/${showId}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
       );
-      console.log(response);
       setDetail(response);
     };
     // const getImages = async () => {
@@ -31,7 +32,6 @@ export default function ShowDetails() {
       const response = await callAPI(
         `${process.env.REACT_APP_API_URL}/movie/${showId}/recommendations?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
       );
-      console.log(response);
       setRecommendations(response);
     };
     getMovie();
@@ -73,14 +73,18 @@ export default function ShowDetails() {
             />
           </div>
           <div className="detail">
-            <img
-              src={
-                detail.poster_path
-                  ? `${imgPath}/w400${detail.poster_path}`
-                  : "NotFound"
-              }
-              className="poster"
-            />
+            <div className="poster">
+              <img
+                src={
+                  detail.poster_path
+                    ? `${imgPath}/w400${detail.poster_path}`
+                    : "NotFound"
+                }
+              />
+              <button className="btn btn-dark btn-block mt-3">
+                Watch Trailer
+              </button>
+            </div>
             <div>
               <h1>
                 <a
