@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { callAPI } from "./../shared/service";
+import { callAPI } from "../shared/service";
 import Loader from "./../assets/loader.svg";
 import ShowRecommendations from "./showRecommendations";
 
-export default function MovieExpanded() {
+export default function ShowDetails() {
   const history = useHistory();
   const [detail, setDetail] = useState(null);
   const [recommendations, setRecommendations] = useState(null);

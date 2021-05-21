@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import MovieCard from "./movieCard";
-import MovieExpanded from "./movieExpanded";
+import ShowCard from "./showCard";
+import ShowDetails from "./showDetails";
 
-export default function MoviesList({ searchTerm, fetchCompleted, ...props }) {
+export default function ShowsList({ searchTerm, fetchCompleted, ...props }) {
   const moviesMeta = props.movies;
   const movies = props.movies.results;
   let movieView, helperText;
@@ -10,7 +10,7 @@ export default function MoviesList({ searchTerm, fetchCompleted, ...props }) {
   if (searchTerm.length > 0) {
     if (movies?.length > 0) {
       movieView = movies.map((movie, index) => (
-        <MovieCard key={index} {...movie} />
+        <ShowCard key={index} {...movie} />
       ));
     }
     if (fetchCompleted) {
@@ -29,7 +29,7 @@ export default function MoviesList({ searchTerm, fetchCompleted, ...props }) {
     <Router>
       <Switch>
         <Route path="/show/:id">
-          <MovieExpanded />
+          <ShowDetails />
         </Route>
         <Route path="/">
           <div className="d-flex flex-grow-1 text-center flex-column">
