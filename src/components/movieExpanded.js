@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { callAPI } from "./../shared/service";
 import Loader from "./../assets/loader.svg";
+import ShowRecommendations from "./showRecommendations";
 
 export default function MovieExpanded() {
   const history = useHistory();
   const [detail, setDetail] = useState(null);
-  const showId = history.location.pathname.split("show/")[1];
+  const [recommendations, setRecommendations] = useState(null);
+  const [showId, setShowId] = useState(
+    history.location.pathname.split("show/")[1]
+  );
   const imgPath = "https://image.tmdb.org/t/p";
 
   useEffect(() => {
@@ -17,7 +21,22 @@ export default function MovieExpanded() {
       console.log(response);
       setDetail(response);
     };
+    // const getImages = async () => {
+    //   const response = await callAPI(
+    //     `${process.env.REACT_APP_API_URL}/movie/${showId}/images?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+    //   );
+    //   console.log(response);
+    // };
+    const getSimilar = async () => {
+      const response = await callAPI(
+        `${process.env.REACT_APP_API_URL}/movie/${showId}/recommendations?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+      );
+      console.log(response);
+      setRecommendations(response);
+    };
     getMovie();
+    getSimilar();
+    // getImages();
   }, [showId]);
   return (
     <div className="show-details">
@@ -63,26 +82,28 @@ export default function MovieExpanded() {
               className="poster"
             />
             <div>
-              <a
-                href={detail.homepage ? detail.homepage : "#"}
-                target={detail.homepage ? " _blank" : "_parent"}
-                className="title"
-              >
-                {detail.title}
-                {detail.homepage ? (
-                  <svg
-                    className="ml-2"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
-                    <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
-                  </svg>
-                ) : (
-                  ""
-                )}
-              </a>
+              <h1>
+                <a
+                  href={detail.homepage ? detail.homepage : "#"}
+                  target={detail.homepage ? " _blank" : "_parent"}
+                  className="title"
+                >
+                  {detail.title}
+                  {detail.homepage ? (
+                    <svg
+                      className="ml-2"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
+                      <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
+                    </svg>
+                  ) : (
+                    ""
+                  )}
+                </a>
+              </h1>
               <p>Release: {detail.release_date}</p>
               <p>Run time: {detail.runtime} m</p>
               <p>
@@ -94,6 +115,14 @@ export default function MovieExpanded() {
               <p className="overview">{detail.overview}</p>
             </div>
           </div>
+          {recommendations ? (
+            <>
+              <h2 className="h4 mt-5">You might also like:</h2>
+              <ShowRecommendations movies={recommendations.results} />
+            </>
+          ) : (
+            ""
+          )}
           {/* <pre className="text-white">
             <code>{JSON.stringify(detail, 0, 2)}</code>
           </pre> */}

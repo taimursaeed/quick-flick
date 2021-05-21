@@ -61,6 +61,18 @@ h1 {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
+  &.recommendations {
+    .card {
+      flex: 1;
+      margin-right: 1rem;
+    }
+    @media (max-width: 767px) {
+      .card {
+        flex: 0 0 48%;
+        margin-right: 0;
+      }
+    }
+  }
   .card {
     flex: 0 0 18%;
     margin: 1rem 1%;
@@ -88,6 +100,7 @@ h1 {
     }
     img {
       height: 15rem;
+      max-width: 100%;
       object-fit: cover;
       object-position: top;
       background: #282828;
@@ -132,13 +145,23 @@ h1 {
   }
   .detail {
     display: flex;
+    @media (max-width: 767px) {
+      flex-direction: column;
+    }
     .poster {
+      max-width: 40rem;
       height: 22rem;
-      width: 40rem;
       object-fit: cover;
+      object-position: top;
       margin-right: 3rem;
       border-radius: 1rem;
       box-shadow: 0 0 40px #1a1a1a;
+      @media (max-width: 767px) {
+        margin-bottom: 2rem;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+      }
     }
     .title {
       display: block;
