@@ -17,7 +17,7 @@ export default function ShowOverview({ show }) {
             target={show.homepage ? " _blank" : "_parent"}
             className="title"
           >
-            {show.title}
+            {show.original_title || show.original_name}
             {show.homepage ? (
               <svg
                 className="ml-2"
@@ -33,16 +33,28 @@ export default function ShowOverview({ show }) {
             )}
           </a>
         </h1>
-        <p>Release: {show.release_date}</p>
-        <p>Run time: {show.runtime} m</p>
+        {(show.release_date || show.first_air_date) && (
+          <p>Release: {show.release_date || show.first_air_date}</p>
+        )}
+        {show.runtime && <p>Run time: {show.runtime} m</p>}
         <p>
-          Genres:
-          {show?.genres.map((item, i) => (
-            <span className="ml-2 badge badge-light" key={i}>
-              {item.name}
-            </span>
-          ))}
+          {show.number_of_seasons && (
+            <span>Seasons: {show.number_of_seasons} </span>
+          )}
+          {show.number_of_episodes && (
+            <span className="ml-3">Episodes: {show.number_of_episodes} </span>
+          )}
         </p>
+        {show.genres && (
+          <p>
+            Genres:
+            {show.genres.map((item, i) => (
+              <span className="ml-2 badge badge-light" key={i}>
+                {item.name}
+              </span>
+            ))}
+          </p>
+        )}
         <p className="overview">{show.overview}</p>
       </div>
     </div>

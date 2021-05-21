@@ -25,7 +25,7 @@ export default function ShowsList({ searchTerm, fetchCompleted, ...props }) {
   return (
     <Router>
       <Switch>
-        <Route path="/show/:id">
+        <Route path="/:type/:id">
           <ShowDetails />
         </Route>
         <Route path="/">

@@ -7,7 +7,7 @@ export default function ShowCard(props) {
   return (
     <Link
       className="card"
-      to={`/show/${props.id}`}
+      to={`/${props.media_type}/${props.id}`}
       onClick={props.onClick}
       id={props.id}
     >

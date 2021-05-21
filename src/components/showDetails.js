@@ -4,29 +4,30 @@ import { callAPI } from "../shared/service";
 import Loader from "./../assets/loader.svg";
 import ShowOverview from "./showOverview";
 import ShowRecommendations from "./showRecommendations";
-
+import { getURLParams } from "./../shared/utils";
 export default function ShowDetails() {
   const location = useLocation();
   const [overview, setOverview] = useState(null);
   const [recommendations, setRecommendations] = useState(null);
   const imgPath = "https://image.tmdb.org/t/p";
+  const { type: mediaType } = getURLParams(location.pathname);
 
   const getMovie = async (id) => {
     const response = await callAPI(
-      `${process.env.REACT_APP_API_URL}/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+      `${process.env.REACT_APP_API_URL}/${mediaType}/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
     );
     setOverview(response);
   };
 
   const getRecommendations = async (id) => {
     const response = await callAPI(
-      `${process.env.REACT_APP_API_URL}/movie/${id}/recommendations?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+      `${process.env.REACT_APP_API_URL}/${mediaType}/${id}/recommendations?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
     );
     setRecommendations(response);
   };
 
   useEffect(() => {
-    const id = location.pathname.split("show/")[1];
+    const { id } = getURLParams(location.pathname);
     setOverview(null);
     setRecommendations(null);
     getMovie(id);
