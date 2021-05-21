@@ -2,7 +2,7 @@
 import React from "react";
 import "./App.scss";
 import Header from "./components/header";
-import ShowsList from "./components/showsList";
+import SearchResults from "./components/searchResults";
 
 class App extends React.Component {
   constructor() {
@@ -114,7 +114,7 @@ class App extends React.Component {
               </div>
             </>
           ) : (
-            <ShowsList
+            <SearchResults
               searchTerm={this.state.searchTerm}
               fetchCompleted={!this.state.isFetching}
               shows={this.shows}

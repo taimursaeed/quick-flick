@@ -2,7 +2,11 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ShowCard from "./showCard";
 import ShowDetails from "./showDetails";
 
-export default function ShowsList({ searchTerm, fetchCompleted, ...props }) {
+export default function SearchResults({
+  searchTerm,
+  fetchCompleted,
+  ...props
+}) {
   const showsMeta = props.shows;
   const shows = props.shows.results;
   let showView, helperText;
