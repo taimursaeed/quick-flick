@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { callAPI } from "../shared/service";
 import Loader from "./../assets/loader.svg";
+import { getURLParams } from "./../shared/utils";
 import ShowOverview from "./showOverview";
 import ShowRecommendations from "./showRecommendations";
-import { getURLParams } from "./../shared/utils";
 export default function ShowDetails() {
   const location = useLocation();
   const [overview, setOverview] = useState(null);
@@ -35,22 +35,6 @@ export default function ShowDetails() {
   }, [location.pathname]);
   return (
     <div className="show-details">
-      <header>
-        <Link to="/">
-          <svg
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-            className="btn-back"
-          >
-            <path
-              fillRule="evenodd"
-              d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-              clipRule="evenodd"
-            ></path>
-          </svg>
-        </Link>
-      </header>
       {!overview ? (
         <div className="text-center">
           <img src={Loader} alt="loading" className="loader" />

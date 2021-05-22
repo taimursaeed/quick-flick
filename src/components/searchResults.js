@@ -27,18 +27,18 @@ export default function SearchResults({
     }
   }
   return (
-    <Router>
-      <Switch>
-        <Route path="/:type/:id">
-          <ShowDetails />
-        </Route>
-        <Route path="/">
-          <div className="d-flex flex-grow-1 text-center flex-column">
-            <div className="cards-wrap">{showView}</div>
-            {helperText}
-          </div>
-        </Route>
-      </Switch>
-    </Router>
+    <div className="container-fluid">
+      {props.hasError ? (
+        <div className="mx-auto my-5 p-2 rounded-left rounded-right text-center w-25">
+          <div className="mb-3 h1">(·_·)</div>
+          <p className="mb-0">Uh oh, an error! Try again.</p>
+        </div>
+      ) : (
+        <div className="d-flex flex-grow-1 text-center flex-column">
+          <div className="cards-wrap">{showView}</div>
+          {helperText}
+        </div>
+      )}
+    </div>
   );
 }

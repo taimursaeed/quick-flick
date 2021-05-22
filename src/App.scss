@@ -24,13 +24,25 @@ h1 {
   color: var(--brand);
   margin: 0;
 }
+header {
+  a:hover {
+    text-decoration: none;
+  }
+}
 .search {
-  //   transition: all 0.4s ease;
   position: sticky;
   top: 20px;
   z-index: 1;
-  width: 40%;
+  width: 50%;
   margin: auto;
+  display: flex;
+  align-items: center;
+
+  svg {
+    width: 2rem;
+    margin-right: 0.5rem;
+    fill: white;
+  }
   img {
     position: absolute;
     top: 50%;

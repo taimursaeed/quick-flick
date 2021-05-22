@@ -3,6 +3,8 @@ import React from "react";
 import "./App.scss";
 import Header from "./components/header";
 import SearchResults from "./components/searchResults";
+import ShowDetails from "./components/showDetails";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 class App extends React.Component {
   constructor() {
@@ -72,8 +74,8 @@ class App extends React.Component {
         if (err.name === "AbortError") {
           return;
         } else {
+          this.setState({ hasError: true, isFetching: false });
           console.error("Uh oh, an error!", err);
-          this.setState({ hasError: true });
         }
       });
   };
@@ -99,29 +101,28 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <div className="container-fluid">
+      <Router>
+        <div className="App">
           <Header
             onChange={this.handleSearch}
             isFetching={this.state.isFetching}
             searchTerm={this.state.searchTerm}
           />
-          {this.state.hasError ? (
-            <>
-              <div className="mx-auto my-5 p-2 rounded-left rounded-right text-center w-25 text-muted">
-                <div className="mb-3 h1">(·_·)</div>
-                <p className="mb-0">Uh oh, an error!</p>
-              </div>
-            </>
-          ) : (
-            <SearchResults
-              searchTerm={this.state.searchTerm}
-              fetchCompleted={!this.state.isFetching}
-              shows={this.shows}
-            />
-          )}
+          <Switch>
+            <Route path="/" exact>
+              <SearchResults
+                searchTerm={this.state.searchTerm}
+                fetchCompleted={!this.state.isFetching}
+                shows={this.shows}
+                hasError={this.state.hasError}
+              />
+            </Route>
+            <Route path="/:type/:id">
+              <ShowDetails />
+            </Route>
+          </Switch>
         </div>
-      </div>
+      </Router>
     );
   }
 }
