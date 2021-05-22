@@ -165,6 +165,9 @@ h1 {
       height: 100%;
       z-index: -1;
       background: rgba(0, 0, 0, 0.7);
+      @-moz-document url-prefix() {
+        background: rgba(0, 0, 0, 0.9);
+      }
       -webkit-backdrop-filter: blur(15px);
       backdrop-filter: blur(15px);
     }
