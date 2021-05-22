@@ -72,8 +72,9 @@ header {
 .cards-wrap {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   &.recommendations {
+    justify-content: space-between;
     .card {
       flex: 0 0 30%;
     }
