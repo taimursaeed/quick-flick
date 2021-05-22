@@ -36,7 +36,7 @@ export default function SearchBar(props) {
       <input
         className={"form-control " + (!isSearchPage ? "has-back" : "")}
         type="text"
-        placeholder="Search movies, tv series and episodes...."
+        placeholder="Search movies, tv series and more...."
         onChange={handleChange}
         value={props.searchTerm}
       ></input>
