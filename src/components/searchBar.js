@@ -3,11 +3,16 @@ import Loader from "./../assets/loader.svg";
 export default function SearchBar(props) {
   const history = useHistory();
   const { pathname: pathName } = useLocation();
-  const searchPage = pathName === "/";
+  const isSearchPage = pathName === "/";
+
+  const handleChange = (e) => {
+    !isSearchPage && history.push("/");
+    props.onChange(e);
+  };
 
   return (
     <div className="search mb-4">
-      {!searchPage && (
+      {!isSearchPage && (
         <button
           className="btn p-0"
           onClick={() => {
@@ -29,10 +34,10 @@ export default function SearchBar(props) {
         </button>
       )}
       <input
-        className={"form-control " + (!searchPage ? "has-back" : "")}
+        className={"form-control " + (!isSearchPage ? "has-back" : "")}
         type="text"
         placeholder="Search movies, tv series and episodes...."
-        onChange={props.onChange}
+        onChange={handleChange}
         value={props.searchTerm}
       ></input>
       {props.isFetching ? <img src={Loader} alt="loading" /> : ""}
