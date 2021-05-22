@@ -1,14 +1,9 @@
-import { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import Loader from "./../assets/loader.svg";
 export default function SearchBar(props) {
-  let history = useHistory();
-  let location = useLocation();
-  const pathName = history.location.pathname;
+  const history = useHistory();
+  const { pathname: pathName } = useLocation();
   const searchPage = pathName === "/";
-  useEffect(() => {
-    console.log(history.location.pathname);
-  }, [location]);
 
   return (
     <div className="search mb-4">
