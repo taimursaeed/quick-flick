@@ -46,7 +46,7 @@ export default function ShowOverview({ show }) {
             <span className="ml-3">Episodes: {show.number_of_episodes} </span>
           )}
         </p>
-        {show.genres && (
+        {show.genres.length > 0 && (
           <p>
             Genres:
             {show.genres.map((item, i) => (

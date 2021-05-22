@@ -1,6 +1,5 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useEffect } from "react";
 import ShowCard from "./showCard";
-import ShowDetails from "./showDetails";
 
 export default function SearchResults({
   searchTerm,
@@ -10,6 +9,13 @@ export default function SearchResults({
   const showsMeta = props.shows;
   const shows = props.shows.results;
   let showView, helperText;
+
+  useEffect(() => {
+    window.addEventListener("scroll", props.onScroll);
+    return () => {
+      window.removeEventListener("scroll", props.onScroll);
+    };
+  });
 
   if (searchTerm.length > 0) {
     if (shows?.length > 0) {

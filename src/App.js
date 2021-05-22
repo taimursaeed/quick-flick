@@ -18,14 +18,6 @@ class App extends React.Component {
     this.shows = [];
   }
 
-  componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
-  }
-
   handleScroll = () => {
     const bottomThreshold = 400;
     const windowHeight =
@@ -115,6 +107,7 @@ class App extends React.Component {
                 fetchCompleted={!this.state.isFetching}
                 shows={this.shows}
                 hasError={this.state.hasError}
+                onScroll={this.handleScroll}
               />
             </Route>
             <Route path="/:type/:id">

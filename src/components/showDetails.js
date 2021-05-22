@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { callAPI } from "../shared/service";
 import Loader from "./../assets/loader.svg";
 import { getURLParams } from "./../shared/utils";
