@@ -8,6 +8,7 @@ import ShowRecommendations from "./showRecommendations";
 export default function ShowDetails() {
   const location = useLocation();
   const [overview, setOverview] = useState(null);
+  const [videos, setVideos] = useState(null);
   const [recommendations, setRecommendations] = useState(null);
   const imgPath = "https://image.tmdb.org/t/p";
   const { type: mediaType } = getURLParams(location.pathname);
@@ -18,7 +19,12 @@ export default function ShowDetails() {
     );
     setOverview(response);
   };
-
+  const getVideos = async (id) => {
+    const response = await callAPI(
+      `${process.env.REACT_APP_API_URL}/${mediaType}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+    );
+    setVideos(response);
+  };
   const getRecommendations = async (id) => {
     const response = await callAPI(
       `${process.env.REACT_APP_API_URL}/${mediaType}/${id}/recommendations?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
@@ -31,6 +37,7 @@ export default function ShowDetails() {
     setOverview(null);
     setRecommendations(null);
     getMovie(id);
+    getVideos(id);
     getRecommendations(id);
   }, [location.pathname]);
   return (
@@ -51,7 +58,7 @@ export default function ShowDetails() {
               className="backdrop-poster"
             />
           </div>
-          <ShowOverview show={overview} />
+          <ShowOverview show={overview} videos={videos} />
           <ShowRecommendations shows={recommendations?.results} />
         </div>
       )}

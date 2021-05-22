@@ -1,7 +1,12 @@
 import NotFound from "./../assets/not-found.png";
-export default function ShowOverview({ show }) {
+export default function ShowOverview({ show, videos }) {
   const imgPath = "https://image.tmdb.org/t/p";
-  return (
+  const trailer =
+    videos?.results.length > 0
+      ? videos.results.find((item) => item.site === "YouTube").key
+      : null;
+
+  return show ? (
     <div className="detail">
       <div className="poster">
         <img
@@ -9,7 +14,15 @@ export default function ShowOverview({ show }) {
             show.poster_path ? `${imgPath}/w400${show.poster_path}` : NotFound
           }
         />
-        <button className="btn btn-dark btn-block mt-3">Watch Trailer</button>
+        {trailer && (
+          <a
+            href={`https://www.youtube.com/watch?v=` + trailer}
+            className="btn btn-dark btn-block mt-3"
+            target="_blank"
+          >
+            Watch Trailer
+          </a>
+        )}
       </div>
       <div>
         <h1>
@@ -59,5 +72,5 @@ export default function ShowOverview({ show }) {
         <p className="overview">{show.overview}</p>
       </div>
     </div>
-  );
+  ) : null;
 }
