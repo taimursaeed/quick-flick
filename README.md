@@ -1,6 +1,6 @@
 
 
-# Movies Search <img src="./src/assets/logo.svg" alt="logo" width="50" />
+# Quick Flick <img src="./src/assets/logo.svg" alt="logo" width="40" />  
 A React JS app to search Movies, TV series and more
 
 
