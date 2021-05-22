@@ -5,14 +5,14 @@ export default function SearchBar(props) {
   let history = useHistory();
   let location = useLocation();
   const pathName = history.location.pathname;
-
+  const searchPage = pathName === "/";
   useEffect(() => {
     console.log(history.location.pathname);
   }, [location]);
 
   return (
     <div className="search mb-4">
-      {pathName !== "/" && (
+      {!searchPage && (
         <button
           className="btn p-0"
           onClick={() => {
@@ -34,7 +34,7 @@ export default function SearchBar(props) {
         </button>
       )}
       <input
-        className="form-control"
+        className={"form-control " + (!searchPage ? "has-back" : "")}
         type="text"
         placeholder="Search movies, tv series and episodes...."
         onChange={props.onChange}
