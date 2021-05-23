@@ -94,7 +94,7 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <div className="App">
+        <div className="App container-fluid">
           <Header
             onChange={this.handleSearch}
             isFetching={this.state.isFetching}

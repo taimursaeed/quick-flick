@@ -33,7 +33,7 @@ export default function SearchResults({
     }
   }
   return (
-    <div className="container-fluid">
+    <>
       {props.hasError ? (
         <div className="mx-auto my-5 p-2 rounded-left rounded-right text-center w-25">
           <div className="mb-3 h1">(·_·)</div>
@@ -45,6 +45,6 @@ export default function SearchResults({
           {helperText}
         </div>
       )}
-    </div>
+    </>
   );
 }
