@@ -1,6 +1,6 @@
 
 
-# Quick Flick <img src="./src/assets/logo.svg" alt="logo" width="40" />  
+# Quick Flick <img src="./src/assets/logo.svg" alt="logo" width="40" />  [![Netlify Status](https://api.netlify.com/api/v1/badges/c0827255-a2a8-4b8e-8894-7060c51c1e5a/deploy-status)](https://app.netlify.com/sites/quick-flick/deploys)
 A React JS app to search Movies, TV series and more
 
 
